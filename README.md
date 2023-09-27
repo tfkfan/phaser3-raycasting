@@ -2,7 +2,7 @@
   <br>
   <a href="https://github.com/tfkfan/phaser3-react-template#readme"><img src="readme/header.png" alt="header" width="600"></a>
   <br>
-  Phaser 3 React TypeScript Starter Template
+  Phaser 3 React TypeScript Raycasting demo
   <br>
 </h1>
 
@@ -40,7 +40,7 @@ A starter template for <a href="https://phaser.io/" target="_blank" >Phaser 3</a
 
 This is what you get after installing this template. A simple and clean starter template written in TypeScript. 
 
-<img src="readme/build.png" width="640" style='border: 0.25em solid #e1e4e8;border-radius: 5px;'/>
+<img src="readme/img.png" width="640" style='border: 0.25em solid #e1e4e8;border-radius: 5px;'/>
 
 ## How To Use
 
