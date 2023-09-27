@@ -48,10 +48,10 @@ To clone and run this template, you'll need [Git](https://git-scm.com) and [Node
 
 ```bash
 # Clone this repository (yes, npx not npm)
-$ git clone https://github.com/tfkfan/phaser3-react-template.git
+$ git clone https://github.com/tfkfan/phaser3-raycasting.git
 
 # Go into the repository
-$ cd phaser3-react-template
+$ cd phaser3-raycasting
 
 # Install dependencies
 $ npm install
@@ -63,69 +63,3 @@ $ npm start
 # Build the production ready code to the /dist folder
 $ npm run build
 ```
-
-## React controls
-
-This template allows to use react hooks outside of react components
-
-To use this take a look to /src/controls.ts and /src/react-controls.ts file to create your own handlers
-
-To register new handler:
-```typescript
-
-const GAME_DEBUG_CONTROL_KEY = "GAME_DEBUG_CONTROL_KEY"
-
-class GameControls extends ReactControls {
-
-  // Create your own register controls method
-  public registerGameDebugControls(controls: GameDebugControls) {
-    this.register(GAME_DEBUG_CONTROL_KEY, controls, this.onGameDebugEvent)
-  }
-
-  private onGameDebugEvent(event:GameDebugEvent, control:GameDebugControls){
-    if (checkExists(event.fps))
-      control.setFps(event.fps)
-    if (checkExists(event.version)) {
-      control.setVersion(event.version)
-    }
-  }
-
-  // Create your own valueSetter method
-  public setFps(fps: number) {
-    this.processEvent(GAME_DEBUG_CONTROL_KEY, {fps})
-            .then(data => {
-              this.onGameDebugEvent(data[1],data[0] as GameDebugControls)
-            })
-  }
-
-  public setVersion(version: string) {
-    this.processEvent(GAME_DEBUG_CONTROL_KEY, {version})
-            .then(data => {
-              this.onGameDebugEvent(data[1],data[0] as GameDebugControls)
-            })
-  }
-}
-```
-
-To use it inside phaser game:
-
-```typescript
-CONTROLS.setVersion(`Phaser v${Phaser.VERSION}`)
-```
-## Websocket support
-
-Use Network class to communicate with ws server:
-
-```typescript
-network.on(MessageType.UPDATE, data => {
-
-}, this)
-```
-
-```typescript
-network.send(MessageType.PLAYER_KEY_DOWN, {inputId: 'RIGHT', state: false});
-```
-
-## Credits
-
-A huge thank you to Rich [@photonstorm](https://github.com/photonstorm) for creating Phaser
