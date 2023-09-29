@@ -13,6 +13,17 @@ export default class GameScene extends Phaser.Scene {
     private mapGraphics: Phaser.GameObjects.Graphics
     private raycaster: Raycaster
     private obstacles: Array<Phaser.Geom.Polygon>
+    private keymap: any = {
+        'd': 'RIGHT',
+        's': 'DOWN',
+        'a': 'LEFT',
+        'w': 'UP',
+        'в': 'RIGHT',
+        'ы': 'DOWN',
+        'ф': 'LEFT',
+        'ц': 'UP'
+    };
+
 
     constructor() {
         super('game')
@@ -61,24 +72,14 @@ export default class GameScene extends Phaser.Scene {
         }, this, this.player.x, this.player.y, this.obstacles);
 
         this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (evt: { key: string; }) => {
-            if ('d' === evt.key)
-                this.player.setDirection(Direction.RIGHT, true)
-            if ('s' === evt.key)
-                this.player.setDirection(Direction.DOWN, true)
-            if ('a' === evt.key)
-                this.player.setDirection(Direction.LEFT, true)
-            if ('w' === evt.key)
-                this.player.setDirection(Direction.UP, true)
+            const direction = this.keymap[evt.key]
+            if (direction)
+                this.player.setDirection(direction, true)
         });
         this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_UP, (evt: { key: string; }) => {
-            if ('d' === evt.key)
-                this.player.setDirection(Direction.RIGHT, false)
-            if ('s' === evt.key)
-                this.player.setDirection(Direction.DOWN, false)
-            if ('a' === evt.key)
-                this.player.setDirection(Direction.LEFT, false)
-            if ('w' === evt.key)
-                this.player.setDirection(Direction.UP, false)
+            const direction = this.keymap[evt.key]
+            if (direction)
+                this.player.setDirection(direction, false)
         });
 
         // display the Phaser.VERSION
@@ -97,7 +98,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     drawPoly(graphics: Graphics, poly, fill = false) {
-        if(poly.length===0)
+        if (poly.length === 0)
             return
         graphics.beginPath();
         graphics.moveTo(poly[0].x, poly[0].y);
