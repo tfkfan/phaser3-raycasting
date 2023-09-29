@@ -14,14 +14,14 @@ export default class GameScene extends Phaser.Scene {
     private raycaster: Raycaster
     private obstacles: Array<Phaser.Geom.Polygon>
     private keymap: any = {
-        'd': 'RIGHT',
-        's': 'DOWN',
-        'a': 'LEFT',
-        'w': 'UP',
-        'в': 'RIGHT',
-        'ы': 'DOWN',
-        'ф': 'LEFT',
-        'ц': 'UP'
+        'd': Direction.RIGHT,
+        's': Direction.DOWN,
+        'a': Direction.LEFT,
+        'w':Direction.UP,
+        'в': Direction.RIGHT,
+        'ы': Direction.DOWN,
+        'ф': Direction.LEFT,
+        'ц': Direction.UP
     };
 
 
