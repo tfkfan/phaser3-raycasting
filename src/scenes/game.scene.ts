@@ -1,11 +1,11 @@
-import {network, MessageType} from "../net/network";
-import {CONTROLS} from "../controls";
+import {webSocket, MessageType} from "../net/game-web-socket";
 import PhaserLogo from "../actors/phaserLogo";
 import {Direction} from "../shared/direction";
 import Graphics = Phaser.GameObjects.Graphics;
 import {Raycaster} from "../shared/raycaster";
 import {angleRadBetween, toDegrees, toRadians} from "../shared/math-utils";
 import Vector2 = Phaser.Math.Vector2;
+import { useGlobalState } from '../hooks';
 
 export default class GameScene extends Phaser.Scene {
     private player: PhaserLogo
@@ -28,13 +28,14 @@ export default class GameScene extends Phaser.Scene {
     constructor() {
         super('game')
         // Use this update handler to update game state coming from websocket
-        network.on(MessageType.UPDATE, (data) => {
+        webSocket.on(MessageType.UPDATE, (data) => {
 
         }, this)
     }
 
     create() {
-        CONTROLS.setVersion(`Phaser v${Phaser.VERSION}`)
+        useGlobalState(state => state.setVersion(`Phaser v${Phaser.VERSION}`));
+
         this.mapGraphics = this.add.graphics({
             lineStyle: {width: 2, color: 0x00aaff, alpha: 1.0},
             fillStyle: {color: 0x00aaff, alpha: 1.0}
@@ -120,6 +121,6 @@ export default class GameScene extends Phaser.Scene {
         this.featureGraphics.clear()
         this.raycaster.setTo(this.player.x, this.player.y, angleRad)
         this.drawPoly(this.featureGraphics, this.raycaster.castCone(), true)
-        CONTROLS.setFps(Math.trunc(this.sys.game.loop.actualFps))
+        useGlobalState(state => state.setFps(Math.trunc(this.sys.game.loop.actualFps)));
     }
 }
